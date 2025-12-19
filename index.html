@@ -18,9 +18,9 @@
         font-family: "Work Sans", Arial, sans-serif;
 
         /* FOTO DE FONDO */
-        background-image: url("./foto.jpg");
+        background-image: url("./foto.png");
         background-size: cover;
-        background-position: center;
+        background-position: top center; /* ✅ prioriza la parte superior (gente) */
         background-repeat: no-repeat;
         background-attachment: fixed;
 
@@ -36,12 +36,22 @@
         overflow: hidden; /* para que la nieve no genere scroll */
       }
 
+      /* ✅ En pantallas chicas, intentamos ver más foto completa */
+      @media (max-width: 700px) {
+        body {
+          background-size: contain; /* muestra más de la foto */
+          background-position: top center;
+          background-attachment: scroll; /* mejor performance en celular */
+          background-color: #020617; /* relleno cuando sobra espacio */
+        }
+      }
+
       /* Capa oscura arriba de la foto para mejorar la lectura */
       body::before {
         content: "";
         position: fixed;
         inset: 0;
-        background: rgba(2, 6, 23, 0.65); /* ajustá 0.55–0.75 */
+        background: rgba(2, 6, 23, 0.65);
         z-index: 0;
       }
 
@@ -52,14 +62,13 @@
         background: rgba(2, 6, 23, 0.75);
         padding: 34px 28px;
         border-radius: 16px;
-        max-width: 520px; /* un poco más ancho */
-        width: min(92vw, 520px); /* más prolijo en celular */
+        max-width: 520px;
+        width: min(92vw, 520px);
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
       }
 
-      /* ✅ SOLO CAMBIO: tipografía + MÁS GRANDE (sigue responsivo) */
       h1 {
         font-size: clamp(28px, 4.2vw, 40px);
         margin: 0 0 10px 0;
@@ -122,7 +131,6 @@
         }
       }
 
-      /* Ajuste para pantallas MUY chicas */
       @media (max-width: 360px) {
         .card {
           padding: 26px 18px;
@@ -135,7 +143,6 @@
   </head>
 
   <body>
-    <!-- Nieve animada -->
     <div class="snow" id="snow"></div>
 
     <div class="card" id="content">
@@ -147,14 +154,13 @@
     </div>
 
     <script>
-      // Mapa: clave (hash) -> a quién le regala
       const data = {
         meme: "Xime",
         lolo: "María del Castillo",
         xime: "Juancru",
         diego: "Juana",
-        luisito: "Tomás",
-        juan: "Anita",
+        luis: "Tomás",
+        juandelcastillo: "Anita",
         sole: "Jose Foderé",
         mariadelc: "Male",
         juanvazquez: "Mer",
@@ -163,7 +169,7 @@
         joseazpitarte: "Meme",
         mariajose: "Vicky",
         juancru: "Sole",
-        male: "Pali",
+        male: "Diego",
         mer: "José de Azpitarte",
         palote: "Juan Vazquez",
         anita: "Palote",
@@ -172,7 +178,6 @@
         titi: "Alfonso del Castillo",
         maca: "Lolo",
         vicky: "Ina",
-        pali: "Diego",
         coti: "Maca",
         emi: "Coti",
         josefodere: "Joaquín Fernández",
@@ -181,15 +186,15 @@
         joaquin: "Emi",
       };
 
-      // Lee el hash (lo que va después del #) y lo normaliza
       const key = decodeURIComponent(
         window.location.hash.replace("#", "").toLowerCase().trim()
       );
 
-      // Muestra el resultado o error
       if (data[key]) {
-        const prettyName = key.replace(/(^|\s)\S/g, (l) => l.toUpperCase());
-        document.getElementById("giver").innerText = prettyName;
+        const fallbackPretty = key.replace(/(^|\s)\S/g, (l) => l.toUpperCase());
+        const giverName = displayNames[key] || fallbackPretty;
+
+        document.getElementById("giver").innerText = giverName;
         document.getElementById("receiver").innerText =
           "le regalas a… " + data[key];
       } else {
@@ -200,20 +205,18 @@
         `;
       }
 
-      // ✅ Decoración navideña con movimiento: generador de nieve (sin GIF)
-      // (Funciona en celular y no pesa nada)
       const snow = document.getElementById("snow");
-      const flakes = 22; // subí a 35 si querés más nieve
+      const flakes = 22;
 
       for (let i = 0; i < flakes; i++) {
         const f = document.createElement("div");
         f.className = "flake";
         f.textContent = Math.random() > 0.2 ? "❄️" : "✨";
 
-        const left = Math.random() * 100; // vw
-        const size = 14 + Math.random() * 18; // px
-        const duration = 7 + Math.random() * 10; // s
-        const delay = Math.random() * 6; // s
+        const left = Math.random() * 100;
+        const size = 14 + Math.random() * 18;
+        const duration = 7 + Math.random() * 10;
+        const delay = Math.random() * 6;
 
         f.style.left = left + "vw";
         f.style.fontSize = size + "px";

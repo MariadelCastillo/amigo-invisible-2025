@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Amigo Invisible LOSAZPI 2025</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        margin: 0;
+      }
+      .card {
+        background: #020617;
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 400px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+      }
+      h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+      }
+      .name {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 15px 0;
+      }
+      .gift {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+      .hint {
+        font-size: 12px;
+        opacity: 0.6;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card" id="content">
+      <h1>🎁 AMIGO INVISIBLE LOSAZPI 2025</h1>
+      <div class="name" id="giver"></div>
+      <div class="gift" id="receiver"></div>
+      <div class="hint">No compartas este link 😉</div>
+    </div>
+
+    <script>
+      const data = {
+        meme: "Xime",
+        lolo: "María del C.",
+        xime: "Juancru",
+        diego: "Juana",
+        luisito: "Tomás",
+        juan: "Anita",
+        sole: "Jose Foderé",
+        mariadelc: "Male",
+        juanvazquez: "Mer",
+        tomas: "Juan",
+        alfonso: "Joaco de Azpitarte",
+        joseazpitarte: "Meme",
+        mariajose: "Vicky",
+        juancru: "Sole",
+        male: "Pali",
+        mer: "José de Azpitarte",
+        palote: "Juan Vazquez",
+        anita: "Palote",
+        juana: "María José",
+        joaco: "Pachu",
+        titi: "Alfonso del Castillo",
+        maca: "Lolo",
+        vicky: "Ina",
+        pali: "Diego",
+        coti: "Maca",
+        emi: "Coti",
+        josefodere: "Joaquín Fernández",
+        pachu: "Titi",
+        ina: "Luisito",
+        joaquin: "Emi",
+      };
+
+      const key = window.location.hash.replace("#", "").toLowerCase();
+
+      if (data[key]) {
+        document.getElementById("giver").innerText = key.replace(
+          /(^|\s)\S/g,
+          (l) => l.toUpperCase()
+        );
+        document.getElementById("receiver").innerText =
+          "le regalas a… " + data[key];
+      } else {
+        document.getElementById("content").innerHTML = `
+      <h1>🎁 AMIGO INVISIBLE LOSAZPI 2025</h1>
+      <p>Link inválido</p>
+    `;
+      }
+    </script>
+  </body>
+</html>

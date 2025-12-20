@@ -5,7 +5,7 @@
     <title>Amigo Invisible Navidad losAzpi 2025</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ✅ Work Sans -->
+    <!-- Work Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,11 +20,10 @@
         /* FOTO DE FONDO */
         background-image: url("./foto.png");
         background-size: cover;
-        background-position: top center; /* ✅ prioriza la parte superior (gente) */
+        background-position: top center;
         background-repeat: no-repeat;
         background-attachment: fixed;
 
-        /* Layout */
         color: #fff;
         display: flex;
         justify-content: center;
@@ -33,20 +32,18 @@
         text-align: center;
         margin: 0;
         position: relative;
-        overflow: hidden; /* para que la nieve no genere scroll */
+        overflow: hidden;
       }
 
-      /* ✅ En pantallas chicas, intentamos ver más foto completa */
       @media (max-width: 700px) {
         body {
-          background-size: contain; /* muestra más de la foto */
+          background-size: contain;
           background-position: top center;
-          background-attachment: scroll; /* mejor performance en celular */
-          background-color: #020617; /* relleno cuando sobra espacio */
+          background-attachment: scroll;
+          background-color: #020617;
         }
       }
 
-      /* Capa oscura arriba de la foto para mejorar la lectura */
       body::before {
         content: "";
         position: fixed;
@@ -58,7 +55,6 @@
       .card {
         position: relative;
         z-index: 2;
-
         background: rgba(2, 6, 23, 0.75);
         padding: 34px 28px;
         border-radius: 16px;
@@ -66,21 +62,18 @@
         width: min(92vw, 520px);
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
       }
 
       h1 {
         font-size: clamp(28px, 4.2vw, 40px);
-        margin: 0 0 10px 0;
-        letter-spacing: 0.5px;
+        margin-bottom: 10px;
         font-weight: 800;
       }
 
       h2 {
         font-size: clamp(22px, 3.4vw, 32px);
-        margin: 0 0 18px 0;
+        margin-bottom: 18px;
         letter-spacing: 3px;
-        font-weight: 700;
         opacity: 0.95;
       }
 
@@ -92,19 +85,14 @@
 
       .gift {
         font-size: clamp(26px, 4.6vw, 38px);
-        margin-top: 8px;
-        line-height: 1.25;
         font-weight: 600;
       }
 
       .hint {
-        font-size: clamp(16px, 2.6vw, 20px);
-        opacity: 0.8;
         margin-top: 20px;
-        font-weight: 500;
+        opacity: 0.8;
       }
 
-      /* ✅ Decoración navideña con movimiento (sin GIF): nieve */
       .snow {
         position: fixed;
         inset: 0;
@@ -115,28 +103,12 @@
       .flake {
         position: absolute;
         top: -10vh;
-        opacity: 0.85;
-        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
-        animation-name: fall;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
+        animation: fall linear infinite;
       }
 
       @keyframes fall {
-        0% {
-          transform: translateY(-10vh) translateX(0);
-        }
-        100% {
-          transform: translateY(110vh) translateX(30px);
-        }
-      }
-
-      @media (max-width: 360px) {
-        .card {
-          padding: 26px 18px;
-        }
-        h2 {
-          letter-spacing: 2px;
+        to {
+          transform: translateY(120vh);
         }
       }
     </style>
@@ -191,38 +163,25 @@
       );
 
       if (data[key]) {
-        const fallbackPretty = key.replace(/(^|\s)\S/g, (l) => l.toUpperCase());
-        const giverName = displayNames[key] || fallbackPretty;
-
-        document.getElementById("giver").innerText = giverName;
+        const prettyName = key.replace(/(^|\s)\S/g, (l) => l.toUpperCase());
+        document.getElementById("giver").innerText = prettyName;
         document.getElementById("receiver").innerText =
           "le regalas a… " + data[key];
       } else {
         document.getElementById("content").innerHTML = `
           <h1>🎁 Amigo Invisible Navidad 2025</h1>
-          <h2>Familia de Azpitarte</h2>
-          <p style="margin:0;">Link inválido</p>
+          <p>Link inválido</p>
         `;
       }
 
       const snow = document.getElementById("snow");
-      const flakes = 22;
-
-      for (let i = 0; i < flakes; i++) {
+      for (let i = 0; i < 22; i++) {
         const f = document.createElement("div");
         f.className = "flake";
         f.textContent = Math.random() > 0.2 ? "❄️" : "✨";
-
-        const left = Math.random() * 100;
-        const size = 14 + Math.random() * 18;
-        const duration = 7 + Math.random() * 10;
-        const delay = Math.random() * 6;
-
-        f.style.left = left + "vw";
-        f.style.fontSize = size + "px";
-        f.style.animationDuration = duration + "s";
-        f.style.animationDelay = delay + "s";
-
+        f.style.left = Math.random() * 100 + "vw";
+        f.style.fontSize = 14 + Math.random() * 18 + "px";
+        f.style.animationDuration = 7 + Math.random() * 10 + "s";
         snow.appendChild(f);
       }
     </script>
